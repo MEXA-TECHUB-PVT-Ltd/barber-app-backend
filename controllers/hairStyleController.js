@@ -167,6 +167,7 @@ exports.deleteHairStyle = async (req,res)=>{
             res.json({
                 message: "Hair style deleted successfully",
                 status:true,
+                result:result
             })
         }
         else{
@@ -183,4 +184,46 @@ exports.deleteHairStyle = async (req,res)=>{
             error:err.message,
         })
     }
+}
+
+exports.updateHairStylePrice = async (req,res)=>{
+    try{
+            const hairStyleId = req.body.hairStyleId;
+            const price = req.body.price;
+    
+            if(!hairStyleId || !price){
+                return(
+                    res.json({
+                        message: "Please provide hairStyleId Or price",
+                        status:false
+                    })
+                    )
+            }
+
+            const result = await hairStyleModel.findOneAndUpdate({_id:hairStyleId}, {price: price} , {new: true});
+
+            if(result){
+                res.json({
+                    message:"Hair style price updated successfully",
+                    status:true,
+                    result:result
+                })
+            }
+            else{
+                res.json({
+                    message:"Could not update",
+                    status:false,
+                })
+            }
+
+        }
+        catch(err){
+            res.json({
+                message: "Error Occurred ",
+                status:false,
+                error:err.message,
+            })
+        }
+        
+        
 }

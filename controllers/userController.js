@@ -8,20 +8,63 @@ const fs= require("fs");
 exports.register= async (req,res)=>{
 
     try{
-
         const user_type= req.body.user_type;
-        const location = req.body.location;
+        let location = req.body.location;
+        location =JSON.parse(location);
+        const experience = req.body.experience;
+        const payment_info = req.body.payment_info;
         
+        console.log(user_type)
+
+
+        if(user_type == "barber"){
+            if(!payment_info){
+                return (
+                    res.json({
+                        message: " If user_type = barber , then must give payment_info",
+                        status:false
+                    })
+                )
+            }
+        }
+
+
+        if(experience){
+            if(user_type!== "barber"){
+                return (
+                    res.json({
+                        message: "experience can only be add if user_type is barber",
+                        status:false
+                    })
+                )
+            }
+        }
+
+
+        if(user_type === "barber" || user_type === "customer"){
+        }else{
+            return (
+                res.json({
+                    message: "user_type can only be barber or customer",
+                    status:false
+                })
+            )
+        }
+
+       
 
 
         const { error } = registerSchema.validate(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+        if (error) return res.status(400).json({
+            message: error.details[0].message,
+            status:false
+        });
         //Check if the user is already in the db
         const emailExists = await userModel.findOne({ email: req.body.email });
   
         if (emailExists) return res.status(400).json({
             message: "Email already exists",
-            status:'failed'
+            status:false
         })
   
         //hash passwords
@@ -34,45 +77,19 @@ exports.register= async (req,res)=>{
         }
         
     
-
-          //validation on attributes if user_type = trader
-          if(user_type === "trader"){
-            if(is_payable == "false" ){
-                if(can_create_trade == "true"){
-
-                }
-                else{
-                    return(
-                        res.json({
-                            message: "For the user_type trader ,can_create_trade must be true",
-                            status:false
-                        })
-                    )
-                }
-            }
-            else{
-                return(
-                    res.json({
-                        message: "For the user_type trader , is_payable must be false",
-                        status:false
-                    })
-                )
-            }
-          }
-
-
-        
-
         const userRegister = new userModel({
         _id:mongoose.Types.ObjectId(),
         email:req.body.email,
         password:hashPassword,
         user_name:req.body.user_name,
-        user_type:req.body.user_type,
+        user_type:user_type,
+        age:req.body.age,
         device_token:req.body.device_token,
         payment_info:req.body.payment_info,
         photo:photo,
-        location:location
+        location:location,
+        gender:req.body.gender
+
         })
 
         const registeredUser = await userRegister.save();
@@ -96,6 +113,7 @@ exports.register= async (req,res)=>{
 
     }
     catch(e){
+        console.log(e)
         res.json({
             message : "Error occurred while registering User",
             error: e.message,
@@ -126,29 +144,15 @@ exports.login = async (req,res)=>{
     });;
 
     const token = jwt.sign({ _id: user._id}, process.env.TOKEN);
-    var payment_Details={}
-
-    const foundResult = await admin_salesModel.findOne({invited_user_id:user._id});
-    console.log(foundResult)
-    if(foundResult){
-        payment_Details.user_payment_status = true
-    }
-    else{
-        payment_Details.user_payment_status = false
-    }
-
     res.json({
         message: "Logged in successfully", 
         result:user,
         token: token,
         status:"success",
-        payment_Details:payment_Details
-        
     })
 
 
 }
-
 
 exports.checkLogin=(req,res)=>{
     
@@ -248,13 +252,29 @@ exports.deleteUser = async(req, res)=>{
 }
 
 
-exports.updateUser = async (req,res)=>{
+exports.updateUser= async (req,res)=>{
     try{
         const user_id = req.body.user_id
         const email = req.body.email
         const user_name = req.body.user_name;
         const device_token = req.body.device_token;
+        const gender = req.body.gender;
+        const age= req.body.age;
+        const experience = req.body.experience;
 
+
+        const foundResult = await userModel.findOne({_id:user_id});
+        
+        if(experience){
+            if(foundResult.user_type !== "barber"){
+                return(
+                    res.json({
+                        message: "experience can only be added if user_type is barber",
+                        status:false,
+                    })
+                )
+            }
+        }
 
         if(req.file){
             const foundResult = await userModel.findOne({_id:user_id});
@@ -274,7 +294,11 @@ exports.updateUser = async (req,res)=>{
                    email:email,
                    user_name:user_name,
                    device_token:device_token,
-                   photo:req.file.path
+                   photo:req.file.path,
+                   experience:experience,
+                   age:age,
+                   gender:gender
+
                 },
                 {
                     new:true
@@ -286,6 +310,9 @@ exports.updateUser = async (req,res)=>{
                    email:email,
                    user_name:user_name,
                    device_token:device_token,
+                   experience:experience,
+                   age:age,
+                   gender:gender
                 },
                 {
                     new:true
@@ -316,12 +343,12 @@ exports.updateUser = async (req,res)=>{
     }
 }
 
-exports.updateBankInfo = async(req,res)=>{
+exports.updatePayment_info = async(req,res)=>{
     try{
         const user_id = req.body.user_id;
-        const paypal_email = req.body.paypal_email;
+        const payment_info = req.body.payment_info;
         
-        const result = await userModel.findOneAndUpdate({_id:user_id} , {paypal_email:paypal_email} , {new:true});
+        const result = await userModel.findOneAndUpdate({_id:user_id} , {payment_info:payment_info} , {new:true});
         if(result){
             res.json({
                 message: "updated successfully",
@@ -383,58 +410,6 @@ exports.updatePassword =async (req,res)=>{
 }
 
 
-
-
-exports.getAllUsers_customers = async (req,res)=>{
-    try{
-        const result = await userModel.find({user_type:"customer"})
-        if(result){
-            res.json({
-                message: "User with this type customer has been fetched",
-                result: result,
-                statusCode:200
-            })
-        }
-        else{
-            res.json({
-                message:"User could not be fetched",
-            })
-        }
-    }
-    catch(err){
-        res.json({
-            message: "Error Occurred while fetching user",
-            status:false,
-            
-        })
-    }
-}
-exports.getAllUsers_trader = async (req,res)=>{
-    try{
-        const result = await userModel.find({user_type:"trader"})
-        if(result){
-            res.json({
-                message: "User with this type trader has been fetched",
-                result: result,
-                statusCode:200
-            })
-        }
-        else{
-            res.json({
-                message:"User could not be fetched",
-            })
-        }
-    }
-    catch(err){
-        res.json({
-            message: "Error Occurred while fetching user",
-            status:false,
-            
-        })
-    }
-}
-
-
 exports.getAllDeviceTokens = async (req,res)=>{
     try{
         let array =[]
@@ -475,58 +450,183 @@ exports.getAllDeviceTokens = async (req,res)=>{
     }
 }
 
-exports.checkReferral_exists = async (req,res)=>{
+exports.change_blockStatus = async (req,res)=>{
     try{
-        const referral_code= req.query.referral_code;
-        
-        if(!referral_code){
-            return (
+        const user_id = req.body.user_id;
+        const blockStatus = req.body.blockStatus;
+        console.log(blockStatus, user_id)
+        if(!user_id || !typeof(blockStatus)=="boolean"){
+            return(
                 res.json({
-                    message: "Please Provide referral code to check if it exists or not",
-                    status:false
+                    message: "Please provide user_id & blockStatus both.",
+                    status: blockStatus,
                 })
             )
         }
 
-        const result = await userModel.findOne({refferal_code: referral_code});
+        const result = await userModel.findOneAndUpdate({_id:user_id},
+            {
+                blockStatus:blockStatus
+            },
+            {
+                new:true    
+            }
+        )
+
         if(result){
             res.json({
-                message: "User with this referral code exists",
+                message: "Block status has been updated",
+                result:result,
                 status:true,
-                result: result
             })
+
         }
         else{
             res.json({
-                message: "Could not find user with this referral code",
+                message: "Block status could not be updated successfully",
                 status:false,
-                statusCode:404
-            })
-        }
-    }
-    catch(err){
-        res.json({
-            message: "Error Occurred",
-            status:false,
-            error:err.message
-        })
-    }
+            })}
+}
+catch(err){
+    res.json({
+        message: "Error Occurred",
+        error:err.message,
+        status:false,
+    })
+
+}
 }
 
+
+exports.updateUserLocation = async(req,res)=>{
+    try{
+        const user_id = req.body.user_id;
+        const latitude = req.body.latitude;
+        const longitude = req.body.longitude;
+
+        if(!user_id || !latitude || !longitude){
+            return(
+                res.json({
+                    message: "Please provide user_id & latitude & longitude all.",
+                    status: false,
+                })
+            )
+
+        }
+
+        const result = await userModel.findOneAndUpdate({_id:user_id} , 
+            {
+                $set: {
+                    "location.coordinates": [longitude,latitude],
+                  },
+            },
+            {
+                new:true
+            },
+        )
+
+        if(result){
+            res.json({
+                message: "Location updated successfully",
+                result:result,
+                status:true,
+            })
+
+        }
+        else{
+            res.json({
+                message: "Could not update",
+                status:false,
+            })}
+}
+catch(err){
+    res.json({
+        message: "Error Occurred",
+        error:err.message,
+        status:false,
+    })
+
+}
+    
+}
+
+
+exports.getBarbersInRadius = async (req , res)=>{
+try{
+    let long = req.query.long;
+    let lat = req.query.lat;  
+    let radius = req.query.radius;
+
+    if(!long || !lat || !radius){
+        return (
+            res.json({
+                message: "Please provide lat, long and radius.",
+                status: false,
+            })
+        )
+    }
+    radius = parseFloat(radius);
+    long = parseFloat(long);
+    lat = parseFloat(lat);
+
+
+
+
+
+    const result = await userModel.aggregate([
+        {
+            $geoNear: {
+               near: { type: "Point", coordinates: [ long, lat ] },
+               distanceField: "dist.distance_km",
+               maxDistance:radius*1000 ,
+               distanceMultiplier :0.001,
+               includeLocs: "dist.location",
+               spherical: true
+        }
+        },
+       
+    ]);
+
+    
+    if(result){
+        res.json({
+            message: "Barbers with in this radius found",
+            result:result,
+            status:true,
+        })
+
+    }
+    else{
+        res.json({
+            message: "Could not fetch results",
+            status:false,
+        })}
+    
+    
+}
+catch(err){
+    res.json({
+        message: "Error Occurred",
+        error:err.message,
+        status:false,
+    })
+
+}
+}
 const registerSchema = Joi.object({
   user_name: Joi.string(),
-  email: Joi.string().min(6).email(),
-  password: Joi.string().min(6),
+  email: Joi.string().min(6).email().required(),
+  password: Joi.string().min(6).required(),
   blockStatus: Joi.boolean(),
   device_token:Joi.string(),
-  refferal_code: Joi.string(),
   user_type: Joi.string(),
-  paypal_email: Joi.string(),
-  is_payable: Joi.string(),
-  can_create_trade: Joi.string()
+  payment_info: Joi.string(),
+  experience: Joi.string(),
+  age: Joi.string(),
+  gender:Joi.string(),
+  location: Joi.string(),
+})
 
-
-});
 
 const loginSchema = Joi.object({
     email: Joi.string().min(6).required().email(),
