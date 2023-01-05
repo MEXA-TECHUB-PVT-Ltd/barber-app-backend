@@ -40,6 +40,12 @@ app.use("/forgetPassword" , require("./routes/userForgetRoute"))
 app.use("/hairStyle" , require("./routes/hairStyleRoute"))
 app.use("/user" , require("./routes/userRoute"))
 app.use("/barber_rating" , require("./routes/barberRatingRoute"))
+app.use("/work_day_for_shop" , require("./routes/work_day_for_shopRoute"))
+app.use("/work_day_for_shop_timings" , require("./routes/work_day_for_shopTimingRoute"))
+app.use("/privacyPolicy" , require("./routes/privacyPolicyRoute"))
+app.use("/terms_conditions" , require("./routes/term&conditionRoute"))
+
+
 
 
 
