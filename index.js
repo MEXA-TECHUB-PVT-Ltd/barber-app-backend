@@ -36,8 +36,12 @@ app.use(express.json());
 
 
 app.use("/admin" , require("./routes/adminRoute"))
-// app.use("/forgetPassword" , require("./routes/userForgetRoute"))
+app.use("/forgetPassword" , require("./routes/userForgetRoute"))
 app.use("/hairStyle" , require("./routes/hairStyleRoute"))
+app.use("/user" , require("./routes/userRoute"))
+app.use("/barber_rating" , require("./routes/barberRatingRoute"))
+
+
 
 
 

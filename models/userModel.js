@@ -9,6 +9,17 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         default:false,
     },
+    age:String,
+    experience:String,
+    gender:{
+      type : String,
+      enum:[
+        "male",
+        "female",
+        "preferNotToSay"
+      ]
+    },
+
     device_token:String,
     photo :String,
     payment_info:String,
@@ -30,6 +41,8 @@ const userSchema = new mongoose.Schema({
  
     
 })
+
+userSchema.index( { location : "2dsphere" } );
 
 module.exports=mongoose.model("user" , userSchema);
 
