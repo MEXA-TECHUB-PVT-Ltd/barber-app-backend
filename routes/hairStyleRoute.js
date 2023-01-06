@@ -7,6 +7,8 @@ router.post("/add_hairStyle", upload.single("image"),controller.addHairStyle)
 router.get("/getAll_hairStyle",controller.getAllHairStyles)
 router.get("/get_hairStyleById",controller.getHairStyleById)
 router.delete("/deleteHairStyle",controller.deleteHairStyle)
+router.put("/updateHairStylePrice",controller.updateHairStylePrice)
+
 
 
 
