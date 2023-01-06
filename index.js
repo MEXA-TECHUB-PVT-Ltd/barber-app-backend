@@ -44,6 +44,8 @@ app.use("/work_day_for_shop" , require("./routes/work_day_for_shopRoute"))
 app.use("/work_day_for_shop_timings" , require("./routes/work_day_for_shopTimingRoute"))
 app.use("/privacyPolicy" , require("./routes/privacyPolicyRoute"))
 app.use("/terms_conditions" , require("./routes/term&conditionRoute"))
+app.use("/appointment" , require("./routes/appointment_route"))
+
 
 
 
