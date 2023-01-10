@@ -14,6 +14,9 @@ const appointmentSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref: "user"
     },
+    pay_to_admin:{
+       type:Object
+    },
     work_day_for_shop_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref: "work_day_for_shop"

@@ -45,6 +45,12 @@ app.use("/work_day_for_shop_timings" , require("./routes/work_day_for_shopTiming
 app.use("/privacyPolicy" , require("./routes/privacyPolicyRoute"))
 app.use("/terms_conditions" , require("./routes/term&conditionRoute"))
 app.use("/appointment" , require("./routes/appointment_route"))
+app.use("/appointmentHistory" , require("./routes/appointmentHistoryRoute"))
+app.use("/commission" , require("./routes/commissionRoute"))
+app.use("/hairStyle_price" , require("./routes/hairStylePriceRoute"))
+
+
+
 
 
 
