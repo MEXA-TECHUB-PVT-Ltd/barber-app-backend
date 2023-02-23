@@ -1,0 +1,747 @@
+{
+	"info": {
+		"_postman_id": "6192050c-dafd-4769-bc04-f353ce826b0b",
+		"name": "notification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20326423"
+	},
+	"item": [
+		{
+			"name": "012 Notification Copy",
+			"item": [
+				{
+					"name": "001 Create Notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"notification_type\": \"sale_target_achieved\",\r\n    \"from\": \"system\",\r\n    \"to\":\"639aeb6be37b69bb30c74a65\",\r\n    \"message\":\"Notificaton craeted\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/notification/createNotification",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notification",
+								"createNotification"
+							]
+						},
+						"description": "This API is for creating notification , Provide \r\nFollowing attributes to create notification . \r\n\r\nnotification_type can be one of these: [\"new_trade\" ,\"trade_update\" , \"new_sale\" , \"sale_target_achieved\" , \"rank_update\"] \r\n\r\nif(notification _type)== new_trade OR trade_update then {\r\n    from= sender/receiver,\r\n    to : \"all\"\r\n}\r\nif(notification_type== \"new_sale\" OR \"sale_target_achieved\" OR \"rank_update\" )\r\nthen {\r\n    from = \"system\",\r\n    to= < user id of the user > \r\n}\r\n In message : Send the message you wants to send , \r\n\r\n Note : All Attributes must be provided .\r\n \r\n\r\n"
+					},
+					"response": [
+						{
+							"name": "001 Create Notification",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"notification_type\": \"new_trade\",\r\n    \"from\": \"admin\",\r\n    \"to\":\"all\",\r\n    \"message\":\"Notificaton craeted\"\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/notification/createNotification",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"notification",
+										"createNotification"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "279"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"117-hGoVFnPzFf52D7i67tufXKygiI4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 08:06:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Notification saved successfully\",\n    \"result\": {\n        \"_id\": \"63a410162fcf2118ff492ed7\",\n        \"from\": \"admin\",\n        \"to\": \"all\",\n        \"message\": \"Notificaton craeted\",\n        \"notification_type\": \"new_trade\",\n        \"createdAt\": \"2022-12-22T08:06:46.961Z\",\n        \"updatedAt\": \"2022-12-22T08:06:46.961Z\",\n        \"__v\": 0\n    },\n    \"status\": true\n}"
+						},
+						{
+							"name": "001 Create Notification",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"notification_type\": \"sale_target_achieved\",\r\n    \"from\": \"system\",\r\n    \"to\":\"639aeb6be37b69bb30c74a65\",\r\n    \"message\":\"Notificaton craeted\"\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/notification/createNotification",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"notification",
+										"createNotification"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "312"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"138-/7IElX68sQhygEZyZgrYiz+PBtU\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 09:56:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Notification saved successfully\",\n    \"result\": {\n        \"_id\": \"63a429b3b0d262b89edd3fb9\",\n        \"from\": \"system\",\n        \"to\": \"639aeb6be37b69bb30c74a65\",\n        \"message\": \"Notificaton craeted\",\n        \"notification_type\": \"sale_target_achieved\",\n        \"createdAt\": \"2022-12-22T09:56:03.662Z\",\n        \"updatedAt\": \"2022-12-22T09:56:03.662Z\",\n        \"__v\": 0\n    },\n    \"status\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "002 Get All Notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/notification/getAllNotifications",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notification",
+								"getAllNotifications"
+							]
+						},
+						"description": "This API is for getting all notifications. "
+					},
+					"response": [
+						{
+							"name": "002 Get All Notifications",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/notification/getAllNotifications",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"notification",
+										"getAllNotifications"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "744"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2e8-yoN3zNM5pSchZfyHcEUpiqgXPe0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 11:34:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"All Notifications fetched successfully\",\n    \"status\": true,\n    \"result\": [\n        {\n            \"_id\": \"63a410162fcf2118ff492ed7\",\n            \"from\": \"admin\",\n            \"to\": \"all\",\n            \"message\": \"Notificaton craeted\",\n            \"notification_type\": \"new_trade\",\n            \"createdAt\": \"2022-12-22T08:06:46.961Z\",\n            \"updatedAt\": \"2022-12-22T08:06:46.961Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"63a4296bb0d262b89edd3fb6\",\n            \"from\": \"trader\",\n            \"to\": \"all\",\n            \"message\": \"Notificaton craeted\",\n            \"notification_type\": \"new_trade\",\n            \"createdAt\": \"2022-12-22T09:54:51.369Z\",\n            \"updatedAt\": \"2022-12-22T09:54:51.369Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"63a429b3b0d262b89edd3fb9\",\n            \"from\": \"system\",\n            \"to\": \"639aeb6be37b69bb30c74a65\",\n            \"message\": \"Notificaton craeted\",\n            \"notification_type\": \"sale_target_achieved\",\n            \"createdAt\": \"2022-12-22T09:56:03.662Z\",\n            \"updatedAt\": \"2022-12-22T09:56:03.662Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "003 Get Noification for user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/notification/getNotificationsOfSpecificUser?user_id=63d0fa12ff14e0ff1bba6265",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notification",
+								"getNotificationsOfSpecificUser"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "63d0fa12ff14e0ff1bba6265"
+								}
+							]
+						},
+						"description": "Get Notification for specific user , Provide user_id in the params to get it . "
+					},
+					"response": [
+						{
+							"name": "003 Get Noification for user",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/notification/getNotificationsOfSpecificUser?user_id=639aeb6be37b69bb30c74a65",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"notification",
+										"getNotificationsOfSpecificUser"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "639aeb6be37b69bb30c74a65"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "713"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c9-OZQgnQ9lxmWiu9+h4rulQgJENgs\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 11:40:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Notifications for this user fetched successfully\",\n    \"status\": \"true\",\n    \"result\": [\n        {\n            \"_id\": \"63a429b3b0d262b89edd3fb9\",\n            \"from\": \"system\",\n            \"to\": \"639aeb6be37b69bb30c74a65\",\n            \"message\": \"Notificaton craeted\",\n            \"notification_type\": \"sale_target_achieved\",\n            \"createdAt\": \"2022-12-22T09:56:03.662Z\",\n            \"updatedAt\": \"2022-12-22T09:56:03.662Z\",\n            \"__v\": 0,\n            \"user_details\": [\n                {\n                    \"_id\": \"639aeb6be37b69bb30c74a65\",\n                    \"user_name\": \"sfafasds\",\n                    \"email\": \"usamatechie@gmail.com\",\n                    \"password\": \"$2a$10$jAwBLBhioFncaIGhEwHB5eeBw.H/ma.oNFHQi8/tVs.gmFUO72ETG\",\n                    \"blockStatus\": false,\n                    \"device_token\": \"dfasf\",\n                    \"user_type\": \"customer\",\n                    \"is_payable\": true,\n                    \"can_create_trade\": true,\n                    \"__v\": 0,\n                    \"paypal_email\": \"paypal_email@gmail.com\",\n                    \"photo\": \"userImages\\\\1671105086676--1.PNG\"\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "004 Get Notifications for all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/notification/getNotificationsForAll",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notification",
+								"getNotificationsForAll"
+							]
+						},
+						"description": "This API is for getting Those notifications which are for all users ."
+					},
+					"response": [
+						{
+							"name": "004 Get Notifications for all",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/notification/getNotificationsForAll",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"notification",
+										"getNotificationsForAll"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "507"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1fb-ek9rl/dxtHml+lcoA4ppTmEIG1Y\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 11:47:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"All Global Notifications fetched successfully\",\n    \"status\": true,\n    \"result\": [\n        {\n            \"_id\": \"63a410162fcf2118ff492ed7\",\n            \"from\": \"admin\",\n            \"to\": \"all\",\n            \"message\": \"Notificaton craeted\",\n            \"notification_type\": \"new_trade\",\n            \"createdAt\": \"2022-12-22T08:06:46.961Z\",\n            \"updatedAt\": \"2022-12-22T08:06:46.961Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"63a4296bb0d262b89edd3fb6\",\n            \"from\": \"trader\",\n            \"to\": \"all\",\n            \"message\": \"Notificaton craeted\",\n            \"notification_type\": \"new_trade\",\n            \"createdAt\": \"2022-12-22T09:54:51.369Z\",\n            \"updatedAt\": \"2022-12-22T09:54:51.369Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "005 Notifications from admin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/notification/NotificationsByAdmin",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notification",
+								"NotificationsByAdmin"
+							]
+						},
+						"description": "This API fetches Those NOtifications which are from admin"
+					},
+					"response": [
+						{
+							"name": "005 Notifications from admin",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/notification/NotificationsByAdmin",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"notification",
+										"NotificationsByAdmin"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "297"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"129-Uu55VddZaAXglUWK/aBBK6p3+2I\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 11:48:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"All Notifications by admin fetched successfully\",\n    \"status\": true,\n    \"result\": [\n        {\n            \"_id\": \"63a410162fcf2118ff492ed7\",\n            \"from\": \"admin\",\n            \"to\": \"all\",\n            \"message\": \"Notificaton craeted\",\n            \"notification_type\": \"new_trade\",\n            \"createdAt\": \"2022-12-22T08:06:46.961Z\",\n            \"updatedAt\": \"2022-12-22T08:06:46.961Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "006 Notifications From Traders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/notification/NotificationsByTrader",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notification",
+								"NotificationsByTrader"
+							]
+						},
+						"description": "THIs api fethes those notifications which are from trader"
+					},
+					"response": [
+						{
+							"name": "006 Notifications From Traders",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/notification/NotificationsByTrader",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"notification",
+										"NotificationsByTrader"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "299"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"12b-AW87zeiqpwJPRyzSv1hmoryjX/c\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 11:50:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"All Notifications by trader fetched successfully\",\n    \"status\": true,\n    \"result\": [\n        {\n            \"_id\": \"63a4296bb0d262b89edd3fb6\",\n            \"from\": \"trader\",\n            \"to\": \"all\",\n            \"message\": \"Notificaton craeted\",\n            \"notification_type\": \"new_trade\",\n            \"createdAt\": \"2022-12-22T09:54:51.369Z\",\n            \"updatedAt\": \"2022-12-22T09:54:51.369Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "007 Notifications from system",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/notification/NotificationsBySystem",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notification",
+								"NotificationsBySystem"
+							]
+						},
+						"description": "This API fetches those notifications which are from system."
+					},
+					"response": [
+						{
+							"name": "007 Notifications from system",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/notification/NotificationsBySystem",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"notification",
+										"NotificationsBySystem"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "331"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14b-FaYXzhIIedXbJm5IvGCX9qtNwDE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 11:51:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"All Notifications by system fetched successfully\",\n    \"status\": true,\n    \"result\": [\n        {\n            \"_id\": \"63a429b3b0d262b89edd3fb9\",\n            \"from\": \"system\",\n            \"to\": \"639aeb6be37b69bb30c74a65\",\n            \"message\": \"Notificaton craeted\",\n            \"notification_type\": \"sale_target_achieved\",\n            \"createdAt\": \"2022-12-22T09:56:03.662Z\",\n            \"updatedAt\": \"2022-12-22T09:56:03.662Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "008 Delete Notification",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/notification/deleteNotification?notification_id=63a429b3b0d262b89edd3fb9",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notification",
+								"deleteNotification"
+							],
+							"query": [
+								{
+									"key": "notification_id",
+									"value": "63a429b3b0d262b89edd3fb9"
+								}
+							]
+						},
+						"description": "This API is for deleting Notifications . Provide notification_id to delete it. "
+					},
+					"response": [
+						{
+							"name": "008 Delete Notification",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/notification/deleteNotification?notification_id=63a429b3b0d262b89edd3fb9",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"notification",
+										"deleteNotification"
+									],
+									"query": [
+										{
+											"key": "notification_id",
+											"value": "63a429b3b0d262b89edd3fb9"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "63"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3f-IDLGw04tG+uGBFKnSi0QGcT2Hkc\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 11:53:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Notification deleted successfully\",\n    \"status\": \"true\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
