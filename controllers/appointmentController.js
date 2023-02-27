@@ -8,6 +8,8 @@ const store_send_notification = require("../utils/store_send_notification")
 
 const appointment_model = require("../models/appointment_model");
 const createNotificationOfUser = require('../utils/create_notification_of_user');
+const createTransaction = require("../utils/createTransaction");
+const hairStylePriceModel = require('../models/hairStylePriceModel');
 
 
 exports.createAppointment = async (req, res) => {
@@ -440,13 +442,29 @@ exports.completeAppointment = async (req, res) => {
             var returnedObject = await store_send_notification(to, "Your appointment has been completed", "completes_appointment", 'barber');
         };
 
-
+        // for sending notification
         if (returnedObject) {
             if (returnedObject.isSend == true) { console.log("Push notification send") } else { console.log("could not send push notification") }
             if (returnedObject.isCreateNotification == true) { console.log('notification created') }
             else { console.log("notification did not created") }
         }
         else { console.log("Notification Did not stored") }
+
+
+
+        
+        if(result){
+            let hairStylePrice = await getHairStylePrice();
+            const isCreatedTransaction = await createTransaction({
+                type: 'debit' , 
+                amount: hairStylePrice,
+                appointment_id: appointment_id,
+                from : ''
+                
+
+
+            })
+        }
 
         if (result) {
             res.json({
@@ -763,5 +781,23 @@ async function checkAvailability(barber_id, appointment_date, work_day_for_shop_
     catch (err) {
         return false;
         console.log(err)
+    }
+}
+
+async function getHairStylePrice (){
+    try{
+        const result = await hairStylePriceModel.findOne({unique_id: 'HS_unique'});
+        if(result){
+            if(result.price){
+                return result.price
+            }
+        }
+        else{
+            return false
+        }
+    }
+    catch(err){
+        console.log(err);
+        return false
     }
 }
