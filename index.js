@@ -49,6 +49,10 @@ app.use("/appointmentHistory" , require("./routes/appointmentHistoryRoute"))
 app.use("/commission" , require("./routes/commissionRoute"))
 app.use("/hairStyle_price" , require("./routes/hairStylePriceRoute"))
 app.use("/notification" , require("./routes/notificationRoute"))
+app.use("/e_wallet" , require("./routes/e_walletRoute"))
+app.use("/length" , require("./routes/lengthRoute"))
+
+
 
 
 
