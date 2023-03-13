@@ -1,14 +1,24 @@
+const { STRING } = require("sequelize");
 
-const  mongoose = require("mongoose");
+module.exports = (sequelize, Sequelize) => {
+    const commission = sequelize.define("commission", {
+      name: {
+        type: Sequelize.STRING,
+      },
+      percentage : {
+        type : Sequelize.STRING
+      },
+      status: {
+        type: Sequelize.ENUM,
+        values : ['active' , 'inactive'],
+        defaultValue : "inactive"
 
-const commissionSchema = new mongoose.Schema({
-    _id : mongoose.Schema.Types.ObjectId,
-    commission_in_percentage:Number ,
-    active:{
-        type:Boolean,
-    },
-
-})
-
-module.exports = mongoose.model('commission' , commissionSchema);
-
+      },
+      trash : {
+        type: Sequelize.BOOLEAN,
+        
+      }
+    });
+  
+    return commission;
+  };

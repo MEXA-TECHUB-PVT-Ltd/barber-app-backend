@@ -1,4 +1,3 @@
-
 function emailOTPBody(otp , companyName , color ){
 
     return `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">

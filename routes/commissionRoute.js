@@ -8,7 +8,9 @@ router.post("/add_commission", controller.addCommission)
 router.put("/update_status", controller.updateStatus)
 router.get("/getAllCommissions", controller.getAllCommissions)
 router.get("/getCommissionById", controller.getCommissionById)
-router.get("/active_commission", controller.getActiveCommission)
+router.delete("/deleteCommission", controller.deleteCommission)
+router.put("/updateCommission", controller.updateCommission)
+
 
 
 

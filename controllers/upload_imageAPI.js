@@ -1,0 +1,39 @@
+
+const mongoose = require('mongoose');
+const hairStylesUpload = require("../middlewares/imageUploadmulter")
+exports.uploadImage = async (req,res)=>{
+    try{
+      // console.log(req.file)
+     
+        hairStylesUpload(req, res, function (err) {
+          
+
+          if(!req.file){
+            return(
+              res.json({
+                message:"please provide image",
+                status:false
+              })
+            )
+          }
+          
+            if (err) {
+                res.status(400).json({
+                    message: "Failed to upload image",
+                    status:false,
+                    error:err.message,
+                  });
+            } else {
+              res.status(200).json({
+                message: "Image uploaded in particular folder",
+                image_url : req.file.path,
+                status:true
+              });
+            }
+          });
+    }
+    catch(err){
+        res.json(err)
+    }
+}
+

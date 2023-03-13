@@ -1,58 +1,68 @@
-const express = require("express")
 
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser")
-const app= express();
-const PORT = 3000;
-
-// const userLogsModel= require('./models/userLogsModels')
+const express = require('express');
+const app = express();
 
 
-const cors = require('cors');
-mongoose.set('strictQuery', false);
 
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+
+const PORT = process.env.PORT || 3000;
+const bodyParser = require('body-parser');
+require('dotenv').config()
+const auth = require('./middlewares/auth')
+
+
+app.use("/barber_profile_images" , express.static("barber_profile_images"))
+app.use("/hairStyles" , express.static("hairStyles"))
+app.use("/admin_profile_images" , express.static("admin_profile_images"))
+
+const cors = require("cors");
+
 app.use(cors({
     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
-}));
+  }));
+  
 
-require('dotenv').config()
-
-
-
-//connect to db
-mongoose.connect(
-    process.env.DB_CONNECTION, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true
-    },
-    () => console.log("Connected to DB")
-);
-
-//middleware
+// parse requests of content-type - application/json
 app.use(express.json());
 
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/admin" , require("./routes/adminRoute"))
-app.use("/forgetPassword" , require("./routes/userForgetRoute"))
-app.use("/hairStyle" , require("./routes/hairStyleRoute"))
-app.use("/user" , require("./routes/userRoute"))
-app.use("/barber_rating" , require("./routes/barberRatingRoute"))
-app.use("/work_day_for_shop" , require("./routes/work_day_for_shopRoute"))
-app.use("/work_day_for_shop_timings" , require("./routes/work_day_for_shopTimingRoute"))
-app.use("/privacyPolicy" , require("./routes/privacyPolicyRoute"))
-app.use("/terms_conditions" , require("./routes/term&conditionRoute"))
-app.use("/appointment" , require("./routes/appointment_route"))
-app.use("/appointmentHistory" , require("./routes/appointmentHistoryRoute"))
-app.use("/commission" , require("./routes/commissionRoute"))
-app.use("/hairStyle_price" , require("./routes/hairStylePriceRoute"))
-app.use("/notification" , require("./routes/notificationRoute"))
-app.use("/e_wallet" , require("./routes/e_walletRoute"))
-app.use("/length" , require("./routes/lengthRoute"))
+app.use(bodyParser.json())
+
+app.use(cors({
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+}));
+
+const db = require("./databaseConnection/sequelizeModel");
+const { config } = require('dotenv');
 
 
+db.sequelize.sync()
+  .then(() => {
+    console.log("Databse Synced with Server successfully.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err);
+  });
+
+
+ app.use("/admin" , require("./routes/adminRoutes"))
+ app.use("/Barber" , require("./routes/BarberRoutes"))
+
+
+ app.use(auth)
+ app.use("/imageUpload" , require("./routes/imageUploadRoute"))
+ app.use("/lenght" , require("./routes/LengthRoute"))
+ app.use("/hairStyle" , require("./routes/HairStyleRoute"))
+ app.use("/hairCutPprice" , require("./routes/hairCutPriceRoute"))
+ app.use("/reasonOfCancellation" , require("./routes/ReasonCancellationRoute"))
+ app.use("/commission" , require("./routes/commissionRoute"))
+ app.use("/emailVerification" , require("./routes/EmailverificationRoute"))
+ app.use("/time_slot" , require("./routes/time_slotsRoute"))
+ app.use("/slot_day" , require("./routes/slot_daysCpntroller"))
 
 
 
@@ -64,9 +74,6 @@ app.use("/length" , require("./routes/lengthRoute"))
 
 
 
-
-const server= app.listen(3000, function () {
-    console.log("server started on port 3000")
-})
-
-
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
